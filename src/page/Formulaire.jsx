@@ -67,11 +67,11 @@ export default function FormulaireProfil() {
       sender(form, "http://127.0.0.1:8000/forest_predict/")
           .then(res => res.json())
           .then(data => {
-              setApiData(data);   // ← stocker la réponse
+              setApiData(data);
               setIsLoad(false);
           })
           .catch(err => {
-              console.log(err);
+              console.error(err);
               setIsLoad(false);
           });
   };

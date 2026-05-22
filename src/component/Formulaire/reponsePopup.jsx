@@ -33,7 +33,11 @@ export default function Popup({ isOpen, onClose, isLoad, data }) {
               ) : data ? (
                 <>
                   {/* Graphique */}
-                  <ResultChart predictions={data.predictions} />
+                  <ResultChart
+                    predictions_actuelles={data?.predictions_actuelles}
+                    predictions_cible={data?.predictions_cible}
+                    est_bon_resultat={data?.est_bon_resultat}
+                  />
 
                   {/* Message LLM en Markdown */}
                   {data.message && (

@@ -64,7 +64,8 @@ export default function FormulaireProfil() {
   const submit = () => {
       setIsLoad(true);
       setIsPopupOpen(true);
-      sender(form, "http://127.0.0.1:8000/forest_predict/")
+      const api_url = import.meta.env.VITE_MODEL_API_URL;
+      sender(form, api_url)
           .then(res => res.json())
           .then(data => {
               setApiData(data);

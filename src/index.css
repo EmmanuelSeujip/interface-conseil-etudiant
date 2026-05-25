@@ -91,7 +91,7 @@
     --radius: 0.625rem;
 
     /* Picton Blue — light mode */
-    --primary: #0073cc;             /* picton-blue-600 */
+    --primary: #33acfd;             /* picton-blue-600 */
     --primary-foreground: oklch(0.985 0 0);
     --accent: #f0f8ff;              /* picton-blue-50  */
     --accent-foreground: #0a4170;   /* picton-blue-900 */
@@ -132,7 +132,7 @@
     --chart-5: oklch(0.269 0 0);
 
     /* Picton Blue — dark mode */
-    --primary: #33acfd;             /* picton-blue-400 — plus clair sur fond sombre */
+    --primary:#0073cc ;             /* picton-blue-400 — plus clair sur fond sombre */
     --primary-foreground: #06294b;  /* picton-blue-950 */
     --accent: #06294b;              /* picton-blue-950 */
     --accent-foreground: #b8e0ff;   /* picton-blue-200 */

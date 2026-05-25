@@ -1,7 +1,7 @@
 import Home from "./page/Home"
 import FormulaireProfil from "./page/Formulaire"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import PageWithHeader from "./component/shared/PageWithHeader"
+import PageWithHeader from "./component/Shared/PageWithHeader"
 const App = () => {
     return (
         <Router>

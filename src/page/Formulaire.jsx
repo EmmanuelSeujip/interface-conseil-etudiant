@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Header from "../component/header";
-import { CheckBox, RadioBtn, InputField } from "../component/typeInput";
-import {stepIcons, ResultBadge} from "../component/iconic";
 import Popup from "../component/Formulaire/reponsePopup";
-import { methodesLabels, exerciceLabels, filieresDictionnaire, diplomesEntree, filieresCategoriesLabels } from "../utils/allEntry";
+import { ResultBadge, stepIcons } from "../component/iconic";
+import Header from "../component/Shared/header";
+import { CheckBox, InputField, RadioBtn } from "../component/typeInput";
+import { diplomesEntree, exerciceLabels, filieresCategoriesLabels, filieresDictionnaire, methodesLabels } from "../utils/allEntry";
 import sender from "../utils/sender";
 const STEPS = ["Profil", "Formation", "Résultat"];
 
@@ -57,34 +57,34 @@ export default function FormulaireProfil() {
 
   const next = () => { if (validate()) setStep((s) => Math.min(s + 1, 2)); };
   const prev = () => { setStep((s) => Math.max(s - 1, 0)); setErrors({}); };
-  const [messages,setMessages]=useState(null);
+  const [messages, setMessages] = useState(null);
   // Dans Formulaire.jsx
   const [apiData, setApiData] = useState(null);  // ← nouveau state
 
   const submit = () => {
-      setIsLoad(true);
-      setIsPopupOpen(true);
-      const api_url = import.meta.env.VITE_MODEL_API_URL;
-      sender(form, api_url)
-          .then(res => res.json())
-          .then(data => {
-              setApiData(data);
-              setIsLoad(false);
-          })
-          .catch(err => {
-              console.error(err);
-              setIsLoad(false);
-          });
+    setIsLoad(true);
+    setIsPopupOpen(true);
+    const api_url = import.meta.env.VITE_MODEL_API_URL;
+    sender(form, api_url)
+      .then(res => res.json())
+      .then(data => {
+        setApiData(data);
+        setIsLoad(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setIsLoad(false);
+      });
   };
 
 
 
-const reset = () => { 
-    setForm(initialForm); 
-    setStep(0); 
+  const reset = () => {
+    setForm(initialForm);
+    setStep(0);
     setErrors({});
     // ← plus d'envoi ici
-};
+  };
 
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -98,7 +98,7 @@ const reset = () => {
     setIsPopupOpen(false);
   };
 
-  
+
   return (
     <div className="min-h-screen bg-blue-50/50">
       <Header navActive={navActive} setNavActive={setNavActive} />
@@ -119,7 +119,7 @@ const reset = () => {
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300
                   ${i < step ? "bg-blue-500 border-blue-500 text-white shadow-md shadow-blue-200"
                     : i === step ? "bg-white border-blue-500 text-blue-600 shadow-lg shadow-blue-100 ring-4 ring-blue-100"
-                    : "bg-white border-blue-200 text-blue-300"}`}>
+                      : "bg-white border-blue-200 text-blue-300"}`}>
                   {i < step
                     ? <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     : stepIcons[i]}
@@ -337,25 +337,25 @@ const reset = () => {
               </button>
             ) : <div />}
 
-          {step < 2 ? (
+            {step < 2 ? (
               <button onClick={next}>
-                  Suivant
+                Suivant
               </button>
-          ) : (
+            ) : (
               <div className="flex gap-3">
-                  {/* Bouton Soumettre */}
-                  <button onClick={submit}
-                      className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-sm ...">
-                      Obtenir ma recommandation
-                  </button>
+                {/* Bouton Soumettre */}
+                <button onClick={submit}
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-sm ...">
+                  Obtenir ma recommandation
+                </button>
 
-                  {/* Bouton Recommencer */}
-                  <button onClick={reset}
-                      className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold text-sm ...">
-                      Recommencer
-                  </button>
+                {/* Bouton Recommencer */}
+                <button onClick={reset}
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold text-sm ...">
+                  Recommencer
+                </button>
               </div>
-          )}
+            )}
           </div>
         </div>
 
@@ -368,8 +368,8 @@ const reset = () => {
           </div>
           <p className="text-xs text-blue-400 font-medium">Étape {step + 1} sur {STEPS.length}</p>
         </div>
-      <Popup isOpen={isPopupOpen} onClose={closePopup} isLoad={isLoad} data={apiData}>
-      </Popup>
+        <Popup isOpen={isPopupOpen} onClose={closePopup} isLoad={isLoad} data={apiData}>
+        </Popup>
       </main>
     </div>
   );

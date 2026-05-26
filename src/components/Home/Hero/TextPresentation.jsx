@@ -24,7 +24,7 @@ const TextPresentation = () => {
   return (
     <div className="w-full">
       <div className="container mx-auto">
-        <div className="flex gap-8 py-20 lg:py-40 items-center justify-center flex-col">
+        <div className="flex gap-8 py-10 items-center justify-center flex-col">
           <div>
             <Button variant="secondary" size="sm" className="gap-4">
               Read our launch article <MoveRight className="w-4 h-4" />
@@ -60,10 +60,10 @@ const TextPresentation = () => {
             </h1>
 
             <p className="text-lg md:text-xl leading-relaxed tracking-tight text-muted-foreground max-w-2xl text-center">
-              Managing a small business today is already tough. Avoid further
-              complications by ditching outdated, tedious trade methods. Our
-              goal is to streamline SMB trade, making it easier and faster than
-              ever.
+              Nous offrons une orientation académique sur-mesure, des 
+              conseils de carrière stratégiques, des recommandations de filières ciblées et 
+              des opportunités professionnelles adaptées afin de transformer vos ambitions en 
+              un avenir radieux et sécurisé.
             </p>
           </div>
           <div className="flex flex-row gap-3">

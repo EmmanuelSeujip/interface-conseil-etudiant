@@ -1,7 +1,7 @@
-import Home from "./page/Home"
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
+import PageWithHeader from "./components/Shared/PageWithHeader"
 import FormulaireProfil from "./page/Formulaire"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import PageWithHeader from "./component/Shared/PageWithHeader"
+import Home from "./page/Home"
 const App = () => {
     return (
         <Router>

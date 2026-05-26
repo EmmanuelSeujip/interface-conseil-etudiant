@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { MoveRight, PhoneCall } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useEffect, useMemo, useState } from "react";
 
 const TextPresentation = () => {
   const [titleNumber, setTitleNumber] = useState(0);
@@ -44,13 +44,13 @@ const TextPresentation = () => {
                     animate={
                       titleNumber === index
                         ? {
-                            y: 0,
-                            opacity: 1,
-                          }
+                          y: 0,
+                          opacity: 1,
+                        }
                         : {
-                            y: titleNumber > index ? -150 : 150,
-                            opacity: 0,
-                          }
+                          y: titleNumber > index ? -150 : 150,
+                          opacity: 0,
+                        }
                     }
                   >
                     {title}

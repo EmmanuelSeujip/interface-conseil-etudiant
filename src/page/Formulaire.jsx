@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Popup from "../component/Formulaire/reponsePopup";
-import { ResultBadge, stepIcons } from "../component/iconic";
-import Header from "../component/Shared/header";
-import { CheckBox, InputField, RadioBtn } from "../component/typeInput";
+import Popup from "../components/Formulaire/reponsePopup";
+import { ResultBadge, stepIcons } from "../components/iconic";
+import Header from "../components/Shared/header";
+import { CheckBox, InputField, RadioBtn } from "../components/typeInput";
 import { diplomesEntree, exerciceLabels, filieresCategoriesLabels, filieresDictionnaire, methodesLabels } from "../utils/allEntry";
 import sender from "../utils/sender";
 const STEPS = ["Profil", "Formation", "Résultat"];

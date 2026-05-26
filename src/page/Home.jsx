@@ -1,13 +1,15 @@
-import BenefitPresentation from "@/component/Home/BenefitPresentation/BenfitPresentation";
-import Hero from "@/component/Home/Hero/Hero";
-import Presentation from "@/component/Home/Presentation/Presentation";
+import BenefitPresentation from "@/components/Home/BenefitPresentation/BenfitPresentation";
+import FaqSection from "@/components/Home/FAQ/Faq";
+import Hero from "@/components/Home/Hero/Hero";
+import Presentation from "@/components/Home/Presentation/Presentation";
 const Home = () => {
     return (
         <>
             <Hero />
             <div className="px-20 py-10 flex flex-col gap-30 overflow-hidden">
                 <Presentation />
-                <BenefitPresentation/>
+                <BenefitPresentation />
+                <FaqSection />
             </div>
 
         </>

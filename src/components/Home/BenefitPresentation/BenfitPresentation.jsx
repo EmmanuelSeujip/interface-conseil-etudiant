@@ -1,7 +1,7 @@
+import TitleDiv from "@/components/Home/SharedHome/TitleDiv";
+import BreathingButton from "@/components/Shared/BreathingButton";
 import { Brain, ChartBar, MapPin } from "lucide-react";
-import TitleDiv from "@/component/Home/SharedHome/TitleDiv";
 import AdvantageCard from "./AdvantageCard";
-import BreathingButton from "@/component/Shared/BreathingButton";
 
 const BenefitPresentation = () => {
     return (
@@ -11,10 +11,10 @@ const BenefitPresentation = () => {
                     <TitleDiv>Nos avantages</TitleDiv>
                     <h1 className="text-4xl font-bold  mt-4 mb-4 w-3/4 leading-snug text-picton-blue-600">Tout ce dont vous avez besoin pour bien s'orienter</h1>
                     <p className=" w-1/2">Des outils pensés pour simplifier votre parcours et vous guider vers la filière qui vous correspond vraiment.</p>
-                </div>   
+                </div>
                 <div className="flex items-center justify-center">
-                    <BreathingButton>Commencer le test</BreathingButton>    
-                </div>        
+                    <BreathingButton>Commencer le test</BreathingButton>
+                </div>
             </div>
 
             <div className="grid grid-cols-3 gap-5">

@@ -1,5 +1,4 @@
 import BenefitPresentation from "@/components/Home/BenefitPresentation/BenfitPresentation";
-import CTA from "@/components/Home/CTA/Cta";
 import CtaSection from "@/components/Home/CTA/CtaSection";
 import FaqSection from "@/components/Home/FAQ/Faq";
 import Hero from "@/components/Home/Hero/Hero";

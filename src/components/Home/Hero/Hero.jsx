@@ -1,6 +1,6 @@
 import KineticGrid from "./KinecticGrid";
 import TextPresentation from "./TextPresentation";
-import logo from "@/asset/image/logo.svg"
+import logo from "@/assets/image/logo.svg"
 const Hero = () => {
     return (
         <KineticGrid>

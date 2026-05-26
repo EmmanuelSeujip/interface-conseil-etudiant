@@ -1,4 +1,4 @@
-import image from "@/asset/image/black-man-woman-writing-report-with-information-from-notebook.webp";
+import image from "@/assets/image/black-man-woman-writing-report-with-information-from-notebook.webp";
 import TitleDiv from "@/components/Home/SharedHome/TitleDiv";
 import { motion } from "framer-motion";
 const Presentation = () => {

@@ -14,6 +14,9 @@ const Home = () => {
                 <FaqSection />
             </div>
             <CtaSection/>
+            <div className="px-20 py-5 text-center font-size-10 border-t border-gray-200">
+                <p>© {new Date().getFullYear()} Open Source, sous licence MIT.</p>
+            </div>
         </>
     );
 };

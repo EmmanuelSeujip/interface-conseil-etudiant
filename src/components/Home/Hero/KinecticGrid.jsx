@@ -5,10 +5,11 @@ const ROWS      = 16;
 const INFLUENCE = 170;
 const STRENGTH  = 50;
 const LSPEED    = 0.11;
+const G_RADIUS  = 130;
 
-function lerp(a, b, t) { return a + (b - a) * t; }
+function lerp(a, b, f) { return a + (b - a) * f; }
 
-export default function KineticGrid({ children }) {
+export default function KineticGrid({ children, className, style }) {
   const wrapperRef = useRef(null);
   const canvasRef  = useRef(null);
 
@@ -19,7 +20,8 @@ export default function KineticGrid({ children }) {
 
     let W, H, points = [];
     let mouse = { x: -9999, y: -9999 };
-    let rafId;
+    let ghost = { x: 0, y: 0 };
+    let t = 0, rafId;
 
     const pt = (r, c) => points[r * COLS + c];
 
@@ -30,59 +32,105 @@ export default function KineticGrid({ children }) {
       canvas.width  = W * dpr;
       canvas.height = H * dpr;
       ctx.scale(dpr, dpr);
-      const cW = W / (COLS - 1), cH = H / (ROWS - 1);
+
+      const cW = W / (COLS - 1);
+      const cH = H / (ROWS - 1);
       points = [];
       for (let r = 0; r < ROWS; r++)
         for (let c = 0; c < COLS; c++) {
           const ox = c * cW, oy = r * cH;
           points.push({ ox, oy, x: ox, y: oy });
         }
+
+      ghost.x = W * 0.5;
+      ghost.y = H * 0.5;
     }
 
-    function drawSegment(a, b) {
-      const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
-      const dx = mouse.x - mx, dy = mouse.y - my;
-      const prox = Math.max(0, 1 - Math.sqrt(dx*dx + dy*dy) / INFLUENCE);
+    function ghostTarget(t) {
+      return {
+        x: W * 0.5 + W * 0.38 * Math.sin(t * 0.47) * Math.cos(t * 0.19),
+        y: H * 0.5 + H * 0.32 * Math.cos(t * 0.31) * Math.sin(t * 0.23 + 1.1),
+      };
+    }
+
+    function drawSegment(a, b, gx, gy, mprox) {
+      const mx = (a.x + b.x) / 2;
+      const my = (a.y + b.y) / 2;
+      const dx = gx - mx, dy = gy - my;
+      const gprox = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / G_RADIUS);
+      const bright = Math.min(1, gprox + mprox * 0.5);
 
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
       ctx.lineTo(b.x, b.y);
-      ctx.strokeStyle = `rgba(${Math.round(lerp(210,55,prox))},${Math.round(lerp(210,138,prox))},${Math.round(lerp(215,221,prox))},${lerp(0.13,0.95,prox).toFixed(2)})`;
-      ctx.lineWidth = lerp(0.45, 1.8, prox);
+      ctx.strokeStyle = `rgba(${Math.round(lerp(210, 51, bright))},${Math.round(lerp(210, 172, bright))},${Math.round(lerp(215, 253, bright))},${lerp(0.13, 0.95, bright).toFixed(2)})`;
+      ctx.lineWidth = lerp(0.45, 1.8, bright);
       ctx.stroke();
+    }
+
+    function mproxAt(ax, ay, bx, by) {
+      if (mouse.x < -100) return 0;
+      const dx = mouse.x - (ax + bx) / 2;
+      const dy = mouse.y - (ay + by) / 2;
+      return Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / INFLUENCE);
     }
 
     function draw() {
       ctx.clearRect(0, 0, W, H);
+      t += 0.008;
+
+      const tgt = ghostTarget(t);
+      ghost.x += (tgt.x - ghost.x) * 0.04;
+      ghost.y += (tgt.y - ghost.y) * 0.04;
+
+      const hasMouse = mouse.x > -100;
 
       points.forEach(p => {
-        const dx = mouse.x - p.ox, dy = mouse.y - p.oy;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        const ease = Math.pow(Math.max(0, 1 - dist / INFLUENCE), 2);
-        const tx = p.ox + dx * ease * (STRENGTH / Math.max(dist, 1));
-        const ty = p.oy + dy * ease * (STRENGTH / Math.max(dist, 1));
+        let tx = p.ox, ty = p.oy;
+        if (hasMouse) {
+          const dx = mouse.x - p.ox, dy = mouse.y - p.oy;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const ease = Math.pow(Math.max(0, 1 - dist / INFLUENCE), 2);
+          tx = p.ox + dx * ease * (STRENGTH / Math.max(dist, 1));
+          ty = p.oy + dy * ease * (STRENGTH / Math.max(dist, 1));
+        }
         p.x += (tx - p.x) * LSPEED;
         p.y += (ty - p.y) * LSPEED;
       });
 
       for (let r = 0; r < ROWS; r++)
-        for (let c = 0; c < COLS - 1; c++) drawSegment(pt(r,c), pt(r,c+1));
+        for (let c = 0; c < COLS - 1; c++) {
+          const a = pt(r, c), b = pt(r, c + 1);
+          drawSegment(a, b, ghost.x, ghost.y, mproxAt(a.x, a.y, b.x, b.y));
+        }
       for (let r = 0; r < ROWS - 1; r++)
-        for (let c = 0; c < COLS; c++) drawSegment(pt(r,c), pt(r+1,c));
+        for (let c = 0; c < COLS; c++) {
+          const a = pt(r, c), b = pt(r + 1, c);
+          drawSegment(a, b, ghost.x, ghost.y, mproxAt(a.x, a.y, b.x, b.y));
+        }
 
       points.forEach(p => {
-        const dx = mouse.x - p.x, dy = mouse.y - p.y;
-        const prox = Math.max(0, 1 - Math.sqrt(dx*dx+dy*dy) / INFLUENCE);
+        const gdx = ghost.x - p.x, gdy = ghost.y - p.y;
+        const gprox = Math.max(0, 1 - Math.sqrt(gdx * gdx + gdy * gdy) / G_RADIUS);
+        let mprox = 0;
+        if (hasMouse) {
+          const dx = mouse.x - p.x, dy = mouse.y - p.y;
+          mprox = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / INFLUENCE);
+        }
+        const bright = Math.min(1, gprox + mprox * 0.5);
         ctx.beginPath();
-        ctx.arc(p.x, p.y, lerp(1, 2.8, prox), 0, Math.PI*2);
-        ctx.fillStyle = `rgba(${Math.round(lerp(200,55,prox))},${Math.round(lerp(200,138,prox))},${Math.round(lerp(200,221,prox))},${lerp(0.18,1,prox).toFixed(2)})`;
+        ctx.arc(p.x, p.y, lerp(1, 3, bright), 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${Math.round(lerp(200, 51, bright))},${Math.round(lerp(200, 172, bright))},${Math.round(lerp(200, 253, bright))},${lerp(0.18, 1, bright).toFixed(2)})`;
         ctx.fill();
       });
 
       rafId = requestAnimationFrame(draw);
     }
 
-    const onMove  = (e) => { const r = wrapper.getBoundingClientRect(); mouse = { x: e.clientX-r.left, y: e.clientY-r.top }; };
+    const onMove  = (e) => {
+      const r = wrapper.getBoundingClientRect();
+      mouse = { x: e.clientX - r.left, y: e.clientY - r.top };
+    };
     const onLeave = () => { mouse = { x: -9999, y: -9999 }; };
 
     setup();
@@ -102,14 +150,21 @@ export default function KineticGrid({ children }) {
   return (
     <div
       ref={wrapperRef}
-      style={{ position: "relative", width: "100%", background: "#fff", borderRadius: 12, overflow: "hidden" }}
+      className={className}
+      style={{ position: "relative", width: "100%", overflow: "hidden", ...style }}
     >
       <div style={{ position: "relative", zIndex: 2 }}>
         {children}
       </div>
       <canvas
         ref={canvasRef}
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: "none",
+        }}
       />
     </div>
   );

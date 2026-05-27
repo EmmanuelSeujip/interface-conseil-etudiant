@@ -75,7 +75,7 @@ const BenefitPresentation = () => {
 
           <motion.h1
             variants={textItemVariants}
-            className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 mb-4 w-full md:w-3/4 leading-snug text-picton-blue-600"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 mb-4 w-full md:w-3/4 leading-snug text-picton-blue-600 dark:text-picton-blue-300"
           >
             Tout ce dont vous avez besoin pour bien s'orienter
           </motion.h1>

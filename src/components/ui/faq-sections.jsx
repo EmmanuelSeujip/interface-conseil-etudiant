@@ -70,7 +70,7 @@ const Faq = ({ faqs }) => {
       >
         {/* Titre + sous-titre avec stagger interne */}
         <motion.h1
-          className="text-4xl font-semibold text-picton-blue-800 mb-4"
+          className="text-4xl font-semibold text-picton-blue-800 dark:text-picton-blue-200 mb-4"
           variants={headerVariants}
           initial="hidden"
           whileInView="visible"
@@ -80,7 +80,7 @@ const Faq = ({ faqs }) => {
         </motion.h1>
 
         <motion.p
-          className="text-sm text-slate-500 mt-2 pb-4"
+          className="text-sm text-slate-500 dark:text-slate-400 mt-2 pb-4"
           variants={headerVariants}
           initial="hidden"
           whileInView="visible"
@@ -100,7 +100,7 @@ const Faq = ({ faqs }) => {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="border-b border-slate-200 py-4 cursor-pointer"
+              className="border-b border-slate-200 dark:border-slate-700 py-4 cursor-pointer"
               onClick={() => setOpenIndex(openIndex === index ? null : index)}
             >
               <div className="flex items-center justify-between">
@@ -111,13 +111,13 @@ const Faq = ({ faqs }) => {
                   viewBox="0 0 18 18"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`flex-shrink-0 ml-4 transition-transform duration-500 ease-in-out ${
+                  className={`flex-shrink-0 ml-4 text-picton-blue-800 dark:text-picton-blue-300 transition-transform duration-500 ease-in-out ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
                 >
                   <path
                     d="m4.5 7.2 3.793 3.793a1 1 0 0 0 1.414 0L13.5 7.2"
-                    stroke="#1D293D"
+                    stroke="currentColor"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -127,7 +127,7 @@ const Faq = ({ faqs }) => {
 
               {/* Réponse — animation CSS pure pour ne pas interférer avec Framer Motion */}
               <p
-                className={`text-sm text-slate-500 text-justify transition-all duration-500 ease-in-out ${
+                className={`text-sm text-slate-500 dark:text-slate-400 text-justify transition-all duration-500 ease-in-out ${
                   openIndex === index
                     ? "opacity-100 max-h-[300px] translate-y-0 pt-4"
                     : "opacity-0 max-h-0 -translate-y-2 overflow-hidden"

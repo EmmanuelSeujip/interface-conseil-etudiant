@@ -41,8 +41,8 @@ const ContactPage = () => {
 
       {/* Fond splitté — horizontal sur desktop, vertical sur mobile */}
       <div className="absolute inset-0 flex flex-col md:flex-row">
-        <div className="h-1/2 md:h-auto md:w-1/2 bg-white" />
-        <div className="h-1/2 md:h-auto md:w-1/2 bg-picton-blue-600" />
+        <div className="h-1/2 md:h-auto md:w-1/2 bg-white dark:bg-picton-blue-950" />
+        <div className="h-1/2 md:h-auto md:w-1/2 bg-picton-blue-600 dark:bg-picton-blue-900" />
       </div>
 
       {/* Rectangles décoratifs */}
@@ -52,7 +52,7 @@ const ContactPage = () => {
 
       {/* Carte principale */}
       <motion.div
-        className="relative z-10 w-full max-w-4xl bg-white rounded-3xl shadow-xl overflow-hidden"
+        className="relative z-10 w-full max-w-4xl bg-white dark:bg-picton-blue-950 rounded-3xl shadow-xl overflow-hidden"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
@@ -69,7 +69,7 @@ const ContactPage = () => {
             viewport={{ once: true, margin: "-80px" }}
           >
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-picton-blue-600 mb-2">
+              <h2 className="text-2xl sm:text-3xl font-bold text-picton-blue-600 dark:text-picton-blue-300 mb-2">
                 Conctatez-nous
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
@@ -80,17 +80,17 @@ const ContactPage = () => {
             <div className="flex flex-col gap-4">
               <Input
                 placeholder="Votre nom complet"
-                className="py-3 bg-picton-blue-50/50 border-0 rounded-xs focus-visible:ring-picton-blue-400 placeholder:text-black/60"
+                className="py-3 bg-picton-blue-50/50 dark:bg-picton-blue-900/50 border-0 rounded-xs focus-visible:ring-picton-blue-400 placeholder:text-black/60 dark:placeholder:text-white/40"
               />
               <Input
                 type="email"
                 placeholder="Votre adresse email"
-                className="py-3 bg-picton-blue-50/50 border-0 rounded-xs focus-visible:ring-picton-blue-400 placeholder:text-black/60"
+                className="py-3 bg-picton-blue-50/50 dark:bg-picton-blue-900/50 border-0 rounded-xs focus-visible:ring-picton-blue-400 placeholder:text-black/60 dark:placeholder:text-white/40"
               />
               <Textarea
                 rows={5}
                 placeholder="Allez-y, nous vous écoutons..."
-                className="resize-none py-3 bg-picton-blue-50/50 border-0 rounded-xs focus-visible:ring-picton-blue-400 placeholder:text-black/60"
+                className="resize-none py-3 bg-picton-blue-50/50 dark:bg-picton-blue-900/50 border-0 rounded-xs focus-visible:ring-picton-blue-400 placeholder:text-black/60 dark:placeholder:text-white/40"
               />
             </div>
 
@@ -104,7 +104,7 @@ const ContactPage = () => {
 
           {/* Colonne droite — Illustration + infos */}
           <motion.div
-            className="bg-picton-blue-50 flex flex-col justify-between p-6 sm:p-8"
+            className="bg-picton-blue-50 dark:bg-picton-blue-900 flex flex-col justify-between p-6 sm:p-8"
             variants={infoVariants}
             initial="hidden"
             whileInView="visible"
@@ -117,10 +117,10 @@ const ContactPage = () => {
             <div className="flex flex-col gap-3 mt-6">
               {contactItems.map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-picton-blue-200 bg-white text-picton-blue-600">
+                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-picton-blue-200 dark:border-picton-blue-700 bg-white dark:bg-picton-blue-950 text-picton-blue-600 dark:text-picton-blue-300">
                     <Icon size={16} strokeWidth={1.75} />
                   </div>
-                  <span className="text-sm text-picton-blue-900">{text}</span>
+                  <span className="text-sm text-picton-blue-900 dark:text-picton-blue-200">{text}</span>
                 </div>
               ))}
             </div>

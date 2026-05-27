@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/image/logo (1).svg";
 
@@ -38,8 +38,10 @@ const Header = () => {
       }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-shadow duration-300 ${
-        scrolled ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-white"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/95 dark:bg-gray-950/95   backdrop-blur-md shadow-sm"
+          : "bg-white dark:bg-gray-950"
       }`}
     >
       <div className="mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
@@ -47,7 +49,7 @@ const Header = () => {
         {/* Logo + Nom */}
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.location.href = "/"}>
           <img src={logo} alt="logo" className="w-9 h-9 object-cover rounded-lg" />
-          <span className="text-base font-bold text-picton-blue-700 tracking-tight">
+          <span className="text-base font-bold text-picton-blue-700 dark:text-picton-blue-300 tracking-tight">
             Orientation AI
           </span>
         </div>
@@ -58,7 +60,7 @@ const Header = () => {
             <a
               key={label}
               href={href}
-              className="px-4 py-2 text-sm font-medium text-gray-600 rounded-lg hover:text-picton-blue-600 hover:bg-picton-blue-50 transition-colors duration-150"
+              className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-picton-blue-300 rounded-lg hover:text-picton-blue-600 dark:hover:text-picton-blue-100 hover:bg-picton-blue-50 dark:hover:bg-picton-blue-900 transition-colors duration-150"
             >
               {label}
             </a>
@@ -71,14 +73,16 @@ const Header = () => {
           </a>
         </nav>
 
-        {/* Burger mobile */}
-        <button
-          className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-picton-blue-50 hover:text-picton-blue-600 transition-colors"
-          onClick={() => setMenuOpen((v) => !v)}
-          aria-label="Menu"
-        >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        {/* Mobile : burger */}
+        <div className="flex items-center gap-1 md:hidden">
+          <button
+            className="p-2 rounded-lg text-gray-600 dark:text-picton-blue-300 hover:bg-picton-blue-50 dark:hover:bg-picton-blue-900 transition-colors"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Menu"
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
 
       </div>
 
@@ -87,7 +91,7 @@ const Header = () => {
         initial={false}
         animate={menuOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
         transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-        className="overflow-hidden md:hidden border-t border-gray-100"
+        className="overflow-hidden md:hidden border-t border-gray-100 dark:border-picton-blue-900"
       >
         <div className="flex flex-col px-6 py-4 gap-1">
           {navLinks.map(({ label, href }) => (
@@ -95,13 +99,13 @@ const Header = () => {
               key={label}
               href={href}
               onClick={() => setMenuOpen(false)}
-              className="px-4 py-3 text-sm font-medium text-gray-600 rounded-lg hover:text-picton-blue-600 hover:bg-picton-blue-50 transition-colors"
+              className="px-4 py-3 text-sm font-medium text-gray-600 dark:text-picton-blue-300 rounded-lg hover:text-picton-blue-600 dark:hover:text-picton-blue-100 hover:bg-picton-blue-50 dark:hover:bg-picton-blue-900 transition-colors"
             >
               {label}
             </a>
           ))}
           <a
-            href="/orientation"
+            href="/formulaire"
             onClick={() => setMenuOpen(false)}
             className="mt-2 px-5 py-3 bg-picton-blue-600 hover:bg-picton-blue-700 text-white text-sm font-semibold rounded-full text-center transition-colors"
           >

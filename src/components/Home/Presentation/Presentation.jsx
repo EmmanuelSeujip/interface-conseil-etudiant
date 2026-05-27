@@ -42,8 +42,8 @@ const Presentation = () => {
     <div ref={ref} className="flex flex-col gap-8 sm:gap-10 items-center relative">
 
       {/* Cercles décoratifs de fond — masqués sur xs pour éviter l'overflow */}
-      <div className="hidden sm:block absolute bg-picton-blue-50 rounded-full z-0 w-60 h-60 -top-20 -right-30" />
-      <div className="hidden sm:block absolute bg-picton-blue-50 opacity-20 rounded-full z-0 w-40 h-40 -bottom-20 left-1/4" />
+      <div className="hidden sm:block absolute bg-picton-blue-50 dark:bg-picton-blue-900/30 rounded-full z-0 w-60 h-60 -top-20 -right-30" />
+      <div className="hidden sm:block absolute bg-picton-blue-50 dark:bg-picton-blue-900/20 opacity-20 rounded-full z-0 w-40 h-40 -bottom-20 left-1/4" />
 
       {/* Badge titre */}
       <TitleDiv>A propos de nous</TitleDiv>
@@ -85,7 +85,7 @@ const Presentation = () => {
           >
             <motion.h2
               variants={itemVariants}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold text-picton-blue-600"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-picton-blue-600 dark:text-picton-blue-300"
             >
               Pourquoi cette plateforme?
             </motion.h2>
@@ -109,7 +109,7 @@ const Presentation = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="text-picton-blue-400 border border-picton-blue-400 px-4 py-2 rounded-full cursor-pointer text-sm sm:text-base"
+                className="text-picton-blue-400 dark:text-picton-blue-300 border border-picton-blue-400 dark:border-picton-blue-600 px-4 py-2 rounded-full cursor-pointer text-sm sm:text-base hover:bg-picton-blue-50 dark:hover:bg-picton-blue-900 transition-colors"
                 onClick={() => window.location.href = "/documentation"}
               >
                 En savoir plus

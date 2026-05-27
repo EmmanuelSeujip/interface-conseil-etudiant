@@ -59,11 +59,18 @@ export default function KineticGrid({ children, className, style }) {
       const dx = gx - mx, dy = gy - my;
       const gprox = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / G_RADIUS);
       const bright = Math.min(1, gprox + mprox * 0.5);
+      const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      // light: gris→bleu vif  |  dark: bleu profond→bleu clair
+      const r = dark ? Math.round(lerp(30, 51, bright))  : Math.round(lerp(210, 51, bright));
+      const g = dark ? Math.round(lerp(60, 172, bright)) : Math.round(lerp(210, 172, bright));
+      const b2 = dark ? Math.round(lerp(120, 253, bright)) : Math.round(lerp(215, 253, bright));
+      const a2 = dark ? lerp(0.06, 0.9, bright).toFixed(2) : lerp(0.13, 0.95, bright).toFixed(2);
 
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
       ctx.lineTo(b.x, b.y);
-      ctx.strokeStyle = `rgba(${Math.round(lerp(210, 51, bright))},${Math.round(lerp(210, 172, bright))},${Math.round(lerp(215, 253, bright))},${lerp(0.13, 0.95, bright).toFixed(2)})`;
+      ctx.strokeStyle = `rgba(${r},${g},${b2},${a2})`;
       ctx.lineWidth = lerp(0.45, 1.8, bright);
       ctx.stroke();
     }
@@ -118,9 +125,14 @@ export default function KineticGrid({ children, className, style }) {
           mprox = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) / INFLUENCE);
         }
         const bright = Math.min(1, gprox + mprox * 0.5);
+        const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const r = dark ? Math.round(lerp(30, 51, bright))  : Math.round(lerp(200, 51, bright));
+        const g = dark ? Math.round(lerp(60, 172, bright)) : Math.round(lerp(200, 172, bright));
+        const b2 = dark ? Math.round(lerp(120, 253, bright)) : Math.round(lerp(200, 253, bright));
+        const a2 = dark ? lerp(0.08, 1, bright).toFixed(2) : lerp(0.18, 1, bright).toFixed(2);
         ctx.beginPath();
         ctx.arc(p.x, p.y, lerp(1, 3, bright), 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${Math.round(lerp(200, 51, bright))},${Math.round(lerp(200, 172, bright))},${Math.round(lerp(200, 253, bright))},${lerp(0.18, 1, bright).toFixed(2)})`;
+        ctx.fillStyle = `rgba(${r},${g},${b2},${a2})`;
         ctx.fill();
       });
 

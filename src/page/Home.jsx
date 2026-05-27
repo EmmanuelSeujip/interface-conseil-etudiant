@@ -20,7 +20,7 @@ const Home = () => {
                 <FaqSection />
             </div>
             <CtaSection/>
-            <div className="px-20 py-5 text-center font-size-10 border-t border-gray-200">
+            <div className="px-20 py-5 text-center font-size-10 border-t border-gray-200 dark:border-picton-blue-900 text-gray-600 dark:text-picton-blue-400 bg-white dark:bg-picton-blue-950 transition-colors duration-300">
                 <p>© {new Date().getFullYear()} Open Source, sous licence MIT.</p>
             </div>
         </>

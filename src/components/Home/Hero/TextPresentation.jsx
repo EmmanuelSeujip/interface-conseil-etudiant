@@ -24,7 +24,7 @@ const TextPresentation = () => {
   return (
     <div className="w-full">
       <div className="container mx-auto">
-        <div className="flex gap-10 py-10 items-center justify-center flex-col">
+        <div className="flex gap-10 py-20 items-center justify-center flex-col">
           <div>
             <Button variant="secondary" size="sm" className="gap-4">
               Lire notre documentation <MoveRight className="w-4 h-4" />

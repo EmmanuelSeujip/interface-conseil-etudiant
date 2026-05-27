@@ -48,7 +48,7 @@ const Presentation = () => {
       {/* Badge titre */}
       <TitleDiv>A propos de nous</TitleDiv>
 
-      <div className="flex gap-15 w-full z-10">
+      <div className="flex gap-15 w-full z-0">
 
         {/* Bloc image — slide depuis la gauche */}
         <motion.div

@@ -30,7 +30,7 @@ export default function FormulaireProfil() {
   const setNavActive = useHeaderStore((state) => state.setNavActive);
   useEffect(() => {
     setNavActive("formulaire");
-  }, []);
+  }, [setNavActive]);
 
   const set = (field) => (e) => setForm({ ...form, [field]: e.target.value });
 
@@ -63,7 +63,7 @@ export default function FormulaireProfil() {
 
   const next = () => { if (validate()) setStep((s) => Math.min(s + 1, 2)); };
   const prev = () => { setStep((s) => Math.max(s - 1, 0)); setErrors({}); };
-  const [messages, setMessages] = useState(null);
+  // const [messages, setMessages] = useState(null);
   // Dans Formulaire.jsx
   const [apiData, setApiData] = useState(null);  // ← nouveau state
 
@@ -96,9 +96,6 @@ export default function FormulaireProfil() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isLoad, setIsLoad] = useState(true);
 
-  const openPopup = () => {
-    setIsPopupOpen(true);
-  };
 
   const closePopup = () => {
     setIsPopupOpen(false);
@@ -145,7 +142,7 @@ export default function FormulaireProfil() {
         <div className="bg-white rounded-2xl shadow-xl shadow-picton-blue-100 border border-picton-blue-50 overflow-hidden">
 
           {/* Card header stripe */}
-          <div className="h-1.5 bg-gradient-to-r from-picton-blue-400 via-picton-blue-600 to-picton-blue-400" />
+          <div className="h-1.5 bg-linear-to-r from-picton-blue-400 via-picton-blue-600 to-picton-blue-400" />
 
           <div className="p-7">
 
@@ -287,7 +284,7 @@ export default function FormulaireProfil() {
             {step === 2 && (
               <div className="space-y-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-picton-blue-400 to-picton-blue-600 flex items-center justify-center shadow-lg shadow-picton-blue-200 flex-shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-linear-to-br from-picton-blue-400 to-picton-blue-600 flex items-center justify-center shadow-lg shadow-picton-blue-200 flex-shrink-0">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                     </svg>

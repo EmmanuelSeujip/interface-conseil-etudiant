@@ -1,5 +1,5 @@
-import React from "react";
 import { motion } from "framer-motion";
+import React from "react";
 
 const imageVariants = {
   hidden: { opacity: 0, x: -60 },
@@ -70,7 +70,7 @@ const Faq = ({ faqs }) => {
       >
         {/* Titre + sous-titre avec stagger interne */}
         <motion.h1
-          className="text-4xl font-semibold text-picton-blue-800 dark:text-picton-blue-200 mb-4"
+          className="text-4xl font-semibold text-blue-800 dark:text-slate-100 mb-4"
           variants={headerVariants}
           initial="hidden"
           whileInView="visible"
@@ -111,7 +111,7 @@ const Faq = ({ faqs }) => {
                   viewBox="0 0 18 18"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`flex-shrink-0 ml-4 text-picton-blue-800 dark:text-picton-blue-300 transition-transform duration-500 ease-in-out ${
+                  className={`flex-shrink-0 ml-4 text-blue-800 dark:text-slate-300 transition-transform duration-500 ease-in-out ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
                 >

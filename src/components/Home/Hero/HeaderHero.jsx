@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
 import logo from "@/assets/image/logo (1).svg";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const navLinks = [
   { label: "Accueil", href: "/" },
@@ -49,7 +49,7 @@ const Header = () => {
         {/* Logo + Nom */}
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.location.href = "/"}>
           <img src={logo} alt="logo" className="w-9 h-9 object-cover rounded-lg" />
-          <span className="text-base font-bold text-picton-blue-700 dark:text-picton-blue-300 tracking-tight">
+          <span className="text-base font-bold text-blue-700 dark:text-slate-100 tracking-tight">
             Orientation AI
           </span>
         </div>
@@ -60,14 +60,14 @@ const Header = () => {
             <a
               key={label}
               href={href}
-              className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-picton-blue-300 rounded-lg hover:text-picton-blue-600 dark:hover:text-picton-blue-100 hover:bg-picton-blue-50 dark:hover:bg-picton-blue-900 transition-colors duration-150"
+              className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-slate-300 rounded-lg hover:text-blue-600 dark:hover:text-slate-100 hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors duration-150"
             >
               {label}
             </a>
           ))}
           <a
             href="/formulaire"
-            className="ml-3 px-5 py-2 bg-picton-blue-400 hover:bg-picton-blue-500 text-white text-sm font-semibold rounded-md transition-colors duration-150 whitespace-nowrap"
+              className="ml-3 px-5 py-2 bg-blue-400 hover:bg-blue-500 text-white text-sm font-semibold rounded-md transition-colors duration-150 whitespace-nowrap"
           >
             Démarrer mon orientation
           </a>
@@ -76,7 +76,7 @@ const Header = () => {
         {/* Mobile : burger */}
         <div className="flex items-center gap-1 md:hidden">
           <button
-            className="p-2 rounded-lg text-gray-600 dark:text-picton-blue-300 hover:bg-picton-blue-50 dark:hover:bg-picton-blue-900 transition-colors"
+            className="p-2 rounded-lg text-gray-600 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Menu"
           >
@@ -91,7 +91,7 @@ const Header = () => {
         initial={false}
         animate={menuOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
         transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-        className="overflow-hidden md:hidden border-t border-gray-100 dark:border-picton-blue-900"
+        className="overflow-hidden md:hidden border-t border-gray-100 dark:border-gray-800"
       >
         <div className="flex flex-col px-6 py-4 gap-1">
           {navLinks.map(({ label, href }) => (
@@ -99,7 +99,7 @@ const Header = () => {
               key={label}
               href={href}
               onClick={() => setMenuOpen(false)}
-              className="px-4 py-3 text-sm font-medium text-gray-600 dark:text-picton-blue-300 rounded-lg hover:text-picton-blue-600 dark:hover:text-picton-blue-100 hover:bg-picton-blue-50 dark:hover:bg-picton-blue-900 transition-colors"
+              className="px-4 py-3 text-sm font-medium text-gray-600 dark:text-slate-300 rounded-lg hover:text-blue-600 dark:hover:text-slate-100 hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors"
             >
               {label}
             </a>
@@ -107,7 +107,7 @@ const Header = () => {
           <a
             href="/formulaire"
             onClick={() => setMenuOpen(false)}
-            className="mt-2 px-5 py-3 bg-picton-blue-600 hover:bg-picton-blue-700 text-white text-sm font-semibold rounded-full text-center transition-colors"
+            className="mt-2 px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full text-center transition-colors"
           >
             Démarrer mon orientation
           </a>

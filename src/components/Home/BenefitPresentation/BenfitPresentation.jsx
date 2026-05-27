@@ -1,8 +1,8 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
 import TitleDiv from "@/components/Home/SharedHome/TitleDiv";
 import BreathingButton from "@/components/Shared/BreathingButton";
+import { motion, useInView } from "framer-motion";
 import { Brain, ChartBar, MapPin } from "lucide-react";
+import { useRef } from "react";
 import AdvantageCard from "./AdvantageCard";
 
 const leftSectionVariants = {
@@ -75,7 +75,7 @@ const BenefitPresentation = () => {
 
           <motion.h1
             variants={textItemVariants}
-            className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 mb-4 w-full md:w-3/4 leading-snug text-picton-blue-600 dark:text-picton-blue-300"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 mb-4 w-full md:w-3/4 leading-snug text-blue-600 dark:text-slate-100"
           >
             Tout ce dont vous avez besoin pour bien s'orienter
           </motion.h1>

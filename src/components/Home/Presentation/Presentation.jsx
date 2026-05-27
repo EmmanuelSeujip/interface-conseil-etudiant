@@ -39,27 +39,28 @@ const Presentation = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <div ref={ref} className="flex flex-col gap-10 items-center relative">
+    <div ref={ref} className="flex flex-col gap-8 sm:gap-10 items-center relative">
 
-      {/* Cercles décoratifs de fond */}
-      <div className="absolute bg-picton-blue-50 rounded-full z-0 w-60 h-60 -top-20 -right-30" />
-      <div className="absolute bg-picton-blue-50 opacity-20 rounded-full z-0 w-40 h-40 -bottom-20 left-1/4" />
+      {/* Cercles décoratifs de fond — masqués sur xs pour éviter l'overflow */}
+      <div className="hidden sm:block absolute bg-picton-blue-50 rounded-full z-0 w-60 h-60 -top-20 -right-30" />
+      <div className="hidden sm:block absolute bg-picton-blue-50 opacity-20 rounded-full z-0 w-40 h-40 -bottom-20 left-1/4" />
 
       {/* Badge titre */}
       <TitleDiv>A propos de nous</TitleDiv>
 
-      <div className="flex gap-15 w-full z-0">
+      {/* Layout : colonne sur mobile, ligne sur md+ */}
+      <div className="flex flex-col md:flex-row gap-8 md:gap-15 w-full z-0">
 
         {/* Bloc image — slide depuis la gauche */}
         <motion.div
-          className="w-1/2 relative"
+          className="w-full md:w-1/2 relative"
           custom="left"
           variants={blockVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          <div className="absolute bg-picton-blue-300 w-15 h-15 rounded -left-5 -top-5 -z-10" />
-          <div className="absolute bg-picton-blue-500 w-20 h-20 rounded -right-8 -bottom-8 -z-10" />
+          <div className="hidden sm:block absolute bg-picton-blue-300 w-15 h-15 rounded -left-5 -top-5 -z-10" />
+          <div className="hidden sm:block absolute bg-picton-blue-500 w-20 h-20 rounded -right-8 -bottom-8 -z-10" />
           <img
             src={image}
             alt="Deux étudiants en discussion avec des notes"
@@ -77,30 +78,30 @@ const Presentation = () => {
         >
           {/* Enfants en stagger */}
           <motion.div
-            className="flex flex-col gap-8"
+            className="flex flex-col gap-6 sm:gap-8"
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
             <motion.h2
               variants={itemVariants}
-              className="text-4xl font-bold text-picton-blue-600"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-picton-blue-600"
             >
               Pourquoi cette plateforme?
             </motion.h2>
 
-            <motion.p variants={itemVariants} className="w-full text-justify">
+            <motion.p variants={itemVariants} className="w-full text-justify text-sm sm:text-base">
               Cette plateforme est conçue pour aider les étudiants à trouver
               la filière qui leur convient le mieux. Nous offrons des outils
               pour découvrir les différentes filières, comparer les universités
               et les écoles, et trouver des conseils pour réussir ses études.
             </motion.p>
 
-            <motion.div variants={itemVariants} className="flex gap-4">
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-3">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="bg-picton-blue-400 text-white px-4 py-2 rounded-full cursor-pointer"
+                className="bg-picton-blue-400 text-white px-4 py-2 rounded-full cursor-pointer text-sm sm:text-base"
                 onClick={() => window.location.href = "/formulaire"}
               >
                 Débuter une recommendation
@@ -108,7 +109,7 @@ const Presentation = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="text-picton-blue-400 border border-picton-blue-400 px-4 py-2 rounded-full cursor-pointer"
+                className="text-picton-blue-400 border border-picton-blue-400 px-4 py-2 rounded-full cursor-pointer text-sm sm:text-base"
                 onClick={() => window.location.href = "/documentation"}
               >
                 En savoir plus

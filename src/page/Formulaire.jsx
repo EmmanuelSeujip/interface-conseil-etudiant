@@ -333,7 +333,7 @@ export default function FormulaireProfil() {
           </div>
 
           {/* FOOTER BUTTONS */}
-          <div className="px-7 pb-7 flex items-center justify-between gap-3">
+          <div className="px-4 sm:px-7 pb-4 sm:pb-7 flex flex-wrap items-center justify-between gap-3">
             {step > 0 ? (
               <button onClick={prev}
                 className="flex items-center gap-2 px-5 py-2.5 rounded-xl border-2 border-picton-blue-200 text-picton-blue-600 font-bold text-sm hover:bg-picton-blue-50 transition-all duration-200">
@@ -347,7 +347,7 @@ export default function FormulaireProfil() {
                 Suivant
               </button>
             ) : (
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 {/* Bouton Soumettre */}
                 <button onClick={submit}
                   className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-sm ...">

@@ -14,7 +14,7 @@ const Home = () => {
     return (
         <>
             <Hero />
-            <div className="px-20 py-10 flex flex-col gap-10 overflow-hidden">
+            <div className="px-4 sm:px-8 md:px-12 lg:px-20 py-6 sm:py-10 flex flex-col gap-10 overflow-hidden">
                 <Presentation />
                 <BenefitPresentation />
                 <FaqSection />

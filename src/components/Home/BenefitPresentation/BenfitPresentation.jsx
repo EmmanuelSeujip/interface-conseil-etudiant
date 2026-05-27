@@ -57,10 +57,10 @@ const BenefitPresentation = () => {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <div ref={ref} className="w-full mx-auto p-4 flex flex-col gap-10">
+    <div ref={ref} className="w-full mx-auto p-4 flex flex-col gap-8 sm:gap-10">
 
       {/* Header */}
-      <div className="flex justify-between">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
 
         {/* Texte gauche */}
         <motion.div
@@ -75,12 +75,12 @@ const BenefitPresentation = () => {
 
           <motion.h1
             variants={textItemVariants}
-            className="text-4xl font-bold mt-4 mb-4 w-3/4 leading-snug text-picton-blue-600"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 mb-4 w-full md:w-3/4 leading-snug text-picton-blue-600"
           >
             Tout ce dont vous avez besoin pour bien s'orienter
           </motion.h1>
 
-          <motion.p variants={textItemVariants} className="w-1/2">
+          <motion.p variants={textItemVariants} className="w-full sm:w-3/4 md:w-1/2 text-sm sm:text-base">
             Des outils pensés pour simplifier votre parcours et vous guider
             vers la filière qui vous correspond vraiment.
           </motion.p>
@@ -88,7 +88,7 @@ const BenefitPresentation = () => {
 
         {/* Bouton droit */}
         <motion.div
-          className="flex items-center justify-center"
+          className="flex items-center md:justify-center"
           variants={rightVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -98,9 +98,9 @@ const BenefitPresentation = () => {
 
       </div>
 
-      {/* Cards — items-stretch pour forcer la même hauteur */}
+      {/* Cards — 1 col mobile, 2 col sm, 3 col lg */}
       <motion.div
-        className="grid grid-cols-3 gap-5 items-stretch"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch"
         variants={gridVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}

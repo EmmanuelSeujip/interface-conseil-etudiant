@@ -31,7 +31,7 @@ const TextPresentation = () => {
             </Button>
           </div>
           <div className="flex gap-4 flex-col">
-            <h1 className="text-5xl md:text-6xl max-w-3xl tracking-tighter text-center font-regular">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl max-w-3xl tracking-tighter text-center font-regular">
               <span className="text-spektr-cyan-50">Donnons vie à vos ambitions</span>
               <span className="relative flex w-full justify-center overflow-hidden text-center md:pb-4 md:pt-1">
                 &nbsp;
@@ -66,7 +66,7 @@ const TextPresentation = () => {
               un avenir radieux et sécurisé.
             </p>
           </div>
-          <div className="flex flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
             <Button size="lg" className="gap-4 cursor-pointer transition-colors" variant="outline" onClick={() => window.location.href = "/contact"}>
               Nous contacter <PhoneCall className="w-4 h-4" />
             </Button>

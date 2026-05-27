@@ -37,12 +37,12 @@ const ContactPage = () => {
     setNavActive("contact");
   }, []);
   return (
-    <div className="relative flex items-center justify-center px-6 py-20 overflow-hidden">
+    <div className="relative flex items-center justify-center px-4 sm:px-6 py-10 sm:py-20 overflow-hidden">
 
-      {/* Fond splitté */}
-      <div className="absolute inset-0 flex">
-        <div className="w-1/2 bg-white" />
-        <div className="w-1/2 bg-picton-blue-600" />
+      {/* Fond splitté — horizontal sur desktop, vertical sur mobile */}
+      <div className="absolute inset-0 flex flex-col md:flex-row">
+        <div className="h-1/2 md:h-auto md:w-1/2 bg-white" />
+        <div className="h-1/2 md:h-auto md:w-1/2 bg-picton-blue-600" />
       </div>
 
       {/* Rectangles décoratifs */}
@@ -58,18 +58,18 @@ const ContactPage = () => {
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2">
 
           {/* Colonne gauche — Formulaire */}
           <motion.div
-            className="p-10 flex flex-col gap-6"
+            className="p-6 sm:p-10 flex flex-col gap-6"
             variants={formVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
           >
             <div>
-              <h2 className="text-3xl font-bold text-picton-blue-600 mb-2">
+              <h2 className="text-2xl sm:text-3xl font-bold text-picton-blue-600 mb-2">
                 Conctatez-nous
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
@@ -104,7 +104,7 @@ const ContactPage = () => {
 
           {/* Colonne droite — Illustration + infos */}
           <motion.div
-            className="bg-picton-blue-50 flex flex-col justify-between p-8"
+            className="bg-picton-blue-50 flex flex-col justify-between p-6 sm:p-8"
             variants={infoVariants}
             initial="hidden"
             whileInView="visible"

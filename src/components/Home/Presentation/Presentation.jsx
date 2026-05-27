@@ -101,6 +101,7 @@ const Presentation = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
                 className="bg-picton-blue-400 text-white px-4 py-2 rounded-full cursor-pointer"
+                onClick={() => window.location.href = "/formulaire"}
               >
                 Débuter une recommendation
               </motion.button>
@@ -108,6 +109,7 @@ const Presentation = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
                 className="text-picton-blue-400 border border-picton-blue-400 px-4 py-2 rounded-full cursor-pointer"
+                onClick={() => window.location.href = "/documentation"}
               >
                 En savoir plus
               </motion.button>

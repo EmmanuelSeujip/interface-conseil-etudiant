@@ -38,14 +38,14 @@ const Header = () => {
       }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-      className={`fixed top-0 left-0 right-0 z-900000000 transition-shadow duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-shadow duration-300 ${
         scrolled ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-white"
       }`}
     >
       <div className="mx-auto max-w-7xl px-6 py-3 flex justify-between items-center">
 
         {/* Logo + Nom */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.location.href = "/"}>
           <img src={logo} alt="logo" className="w-9 h-9 object-cover rounded-lg" />
           <span className="text-base font-bold text-picton-blue-700 tracking-tight">
             Orientation AI
@@ -64,7 +64,7 @@ const Header = () => {
             </a>
           ))}
           <a
-            href="/orientation"
+            href="/formulaire"
             className="ml-3 px-5 py-2 bg-picton-blue-400 hover:bg-picton-blue-500 text-white text-sm font-semibold rounded-md transition-colors duration-150 whitespace-nowrap"
           >
             Démarrer mon orientation

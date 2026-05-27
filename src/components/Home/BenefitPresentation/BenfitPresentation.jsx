@@ -93,7 +93,7 @@ const BenefitPresentation = () => {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          <BreathingButton>Commencer le test</BreathingButton>
+          <BreathingButton onClick={() => window.location.href = "/formulaire"}>Commencer le test</BreathingButton>
         </motion.div>
 
       </div>

@@ -26,7 +26,7 @@ const TextPresentation = () => {
       <div className="container mx-auto">
         <div className="flex gap-10 py-20 items-center justify-center flex-col">
           <div>
-            <Button variant="secondary" size="sm" className="gap-4">
+            <Button variant="secondary" size="sm" className="gap-4 cursor-pointer" onClick={() => window.location.href = "/documentation"}>
               Lire notre documentation <MoveRight className="w-4 h-4" />
             </Button>
           </div>
@@ -67,10 +67,10 @@ const TextPresentation = () => {
             </p>
           </div>
           <div className="flex flex-row gap-3">
-            <Button size="lg" className="gap-4" variant="outline">
+            <Button size="lg" className="gap-4 cursor-pointer transition-colors" variant="outline" onClick={() => window.location.href = "/contact"}>
               Nous contacter <PhoneCall className="w-4 h-4" />
             </Button>
-            <Button size="lg" className="gap-4">
+            <Button size="lg" className="gap-4 cursor-pointer transition-colors" onClick={() => window.location.href = "/formulaire"}>
               Demander une orientation <MoveRight className="w-4 h-4" />
             </Button>
           </div>

@@ -35,12 +35,15 @@ const CtaSection = () => {
 
           {/* Boutons */}
           <div className="flex items-center gap-3">
-            <button className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-picton-blue-600 transition-transform hover:-translate-y-0.5">
+            <button className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-picton-blue-600 transition-transform hover:-translate-y-0.5 cursor-pointer" onClick={() => window.location.href = "/formulaire"}>
               Débuter maintenant
               <ArrowRight size={15} strokeWidth={2.5} />
             </button>
-            <button className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-transparent px-5 py-3 text-sm font-medium text-white transition hover:border-white hover:bg-white/10">
+            <button className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-transparent px-5 py-3 text-sm font-medium text-white transition hover:border-white hover:bg-white/10 cursor-pointer" onClick={() => window.location.href = "/documentation"}>
               En savoir plus
+            </button>
+            <button className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-transparent px-5 py-3 text-sm font-medium text-white transition hover:border-white hover:bg-white/10 cursor-pointer" onClick={() => window.location.href = "/contact"}>
+              Nous contacter
             </button>
           </div>
 

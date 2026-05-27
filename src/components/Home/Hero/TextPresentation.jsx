@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 const TextPresentation = () => {
   const [titleNumber, setTitleNumber] = useState(0);
   const titles = useMemo(
-    () => ["amazing", "new", "wonderful", "beautiful", "smart"],
+    () => ["conseil", "aide", "guidance", "orientation"],
     []
   );
 
@@ -24,15 +24,15 @@ const TextPresentation = () => {
   return (
     <div className="w-full">
       <div className="container mx-auto">
-        <div className="flex gap-8 py-10 items-center justify-center flex-col">
+        <div className="flex gap-10 py-10 items-center justify-center flex-col">
           <div>
             <Button variant="secondary" size="sm" className="gap-4">
-              Read our launch article <MoveRight className="w-4 h-4" />
+              Lire notre documentation <MoveRight className="w-4 h-4" />
             </Button>
           </div>
           <div className="flex gap-4 flex-col">
-            <h1 className="text-5xl md:text-7xl max-w-2xl tracking-tighter text-center font-regular">
-              <span className="text-spektr-cyan-50">This is something</span>
+            <h1 className="text-5xl md:text-6xl max-w-3xl tracking-tighter text-center font-regular">
+              <span className="text-spektr-cyan-50">Donnons vie à vos ambitions</span>
               <span className="relative flex w-full justify-center overflow-hidden text-center md:pb-4 md:pt-1">
                 &nbsp;
                 {titles.map((title, index) => (
@@ -68,10 +68,10 @@ const TextPresentation = () => {
           </div>
           <div className="flex flex-row gap-3">
             <Button size="lg" className="gap-4" variant="outline">
-              Jump on a call <PhoneCall className="w-4 h-4" />
+              Nous contacter <PhoneCall className="w-4 h-4" />
             </Button>
             <Button size="lg" className="gap-4">
-              Sign up here <MoveRight className="w-4 h-4" />
+              Demander une orientation <MoveRight className="w-4 h-4" />
             </Button>
           </div>
         </div>

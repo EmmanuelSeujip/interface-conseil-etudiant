@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 
 const AdvantageCard = ({ icon: Icon, title, children }) => {
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-picton-blue-200 bg-white p-7 transition-all duration-200 hover:-translate-y-1 hover:border-picton-blue-500">
+    <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-picton-blue-200 bg-white p-7 transition-all duration-200 hover:-translate-y-1 hover:border-picton-blue-500">
 
       {/* Cercle décoratif */}
       <div className="pointer-events-none absolute -bottom-8 -right-8 h-24 w-24 rounded-full bg-picton-blue-50" />
@@ -13,12 +13,12 @@ const AdvantageCard = ({ icon: Icon, title, children }) => {
       </div>
 
       {/* Titre */}
-      <h3 className="mb-3 text-base font-700 leading-snug text-picton-blue-900">
+      <h3 className="mb-3 text-base font-semibold leading-snug text-picton-blue-900">
         {title}
       </h3>
 
-      {/* Description */}
-      <p className="text-sm leading-relaxed text-muted-foreground">
+      {/* Description — flex-1 pour pousser le footer tout en bas */}
+      <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
         {children}
       </p>
 

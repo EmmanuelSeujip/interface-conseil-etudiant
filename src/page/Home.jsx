@@ -3,7 +3,14 @@ import CtaSection from "@/components/Home/CTA/CtaSection";
 import FaqSection from "@/components/Home/FAQ/Faq";
 import Hero from "@/components/Home/Hero/Hero";
 import Presentation from "@/components/Home/Presentation/Presentation";
+import { useHeaderStore } from "@/store/useHeaderStore";
+import { useEffect } from "react";
+
 const Home = () => {
+    const setNavActive = useHeaderStore((state) => state.setNavActive);
+    useEffect(() => {
+        setNavActive("accueil");
+    }, []);
     return (
         <>
             <Hero />

@@ -4,6 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import image from "@/assets/image/contact.svg"
+import { useHeaderStore } from "@/store/useHeaderStore";
+import { useEffect } from "react";
+
 const formVariants = {
   hidden: { opacity: 0, x: -50 },
   visible: {
@@ -29,6 +32,10 @@ const contactItems = [
 ];
 
 const ContactPage = () => {
+  const setNavActive = useHeaderStore((state) => state.setNavActive);
+  useEffect(() => {
+    setNavActive("contact");
+  }, []);
   return (
     <div className="relative flex items-center justify-center px-6 py-20 overflow-hidden">
 

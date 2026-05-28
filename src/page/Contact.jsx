@@ -26,9 +26,9 @@ const infoVariants = {
 };
 
 const contactItems = [
-  { icon: MapPin, text: "Yaoundé, Cameroun" },
-  { icon: Phone, text: "+237 6XX XXX XXX" },
-  { icon: Mail, text: "contact@orientationplus.cm" },
+  { icon: MapPin, text: "Douala, Cameroun" },
+  { icon: Phone, text: "+237 671 31 11 81" },
+  { icon: Mail, text: "emmanuelseujip@gmail.com" },
 ];
 
 const ContactPage = () => {
@@ -42,7 +42,7 @@ const ContactPage = () => {
       {/* Fond splitté — horizontal sur desktop, vertical sur mobile */}
       <div className="absolute inset-0 flex flex-col md:flex-row">
         <div className="h-1/2 md:h-auto md:w-1/2 bg-white dark:bg-gray-900" />
-        <div className="h-1/2 md:h-auto md:w-1/2 bg-blue-600 dark:bg-gray-800" />
+        <div className="h-1/2 md:h-auto md:w-1/2 bg-picton-blue-600 dark:bg-gray-800" />
       </div>
 
       {/* Rectangles décoratifs */}
@@ -69,7 +69,7 @@ const ContactPage = () => {
             viewport={{ once: true, margin: "-80px" }}
           >
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-slate-100 mb-2">
+              <h2 className="text-2xl sm:text-3xl font-bold text-picton-blue-600 dark:text-slate-100 mb-2">
                 Conctatez-nous
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
@@ -80,22 +80,22 @@ const ContactPage = () => {
             <div className="flex flex-col gap-4">
               <Input
                 placeholder="Votre nom complet"
-                className="py-3 bg-blue-50/50 dark:bg-gray-800/50 border-0 rounded-xs focus-visible:ring-blue-400 placeholder:text-black/60 dark:placeholder:text-white/40"
+                className="py-3 bg-picton-blue-50/50 dark:bg-gray-800/50 border-0 rounded-xs focus-visible:ring-picton-blue-400 placeholder:text-black/60 dark:placeholder:text-white/40"
               />
               <Input
                 type="email"
                 placeholder="Votre adresse email"
-                className="py-3 bg-blue-50/50 dark:bg-gray-800/50 border-0 rounded-xs focus-visible:ring-blue-400 placeholder:text-black/60 dark:placeholder:text-white/40"
+                className="py-3 bg-picton-blue-50/50 dark:bg-gray-800/50 border-0 rounded-xs focus-visible:ring-picton-blue-400 placeholder:text-black/60 dark:placeholder:text-white/40"
               />
               <Textarea
                 rows={5}
                 placeholder="Allez-y, nous vous écoutons..."
-                className="resize-none py-3 bg-blue-50/50 dark:bg-gray-800/50 border-0 rounded-xs focus-visible:ring-blue-400 placeholder:text-black/60 dark:placeholder:text-white/40"
+                className="resize-none py-3 bg-picton-blue-50/50 dark:bg-gray-800/50 border-0 rounded-xs focus-visible:ring-picton-blue-400 placeholder:text-black/60 dark:placeholder:text-white/40"
               />
             </div>
 
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
-              <Button className="w-full rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold py-5 gap-2">
+              <Button className="w-full rounded-xl bg-picton-blue-600 hover:bg-picton-blue-700 text-white font-semibold py-5 gap-2">
                 <Send size={15} />
                 Envoyer
               </Button>
@@ -104,7 +104,7 @@ const ContactPage = () => {
 
           {/* Colonne droite — Illustration + infos */}
           <motion.div
-            className="bg-blue-50 dark:bg-gray-800 flex flex-col justify-between p-6 sm:p-8"
+            className="bg-picton-blue-50 dark:bg-gray-800 flex flex-col justify-between p-6 sm:p-8"
             variants={infoVariants}
             initial="hidden"
             whileInView="visible"
@@ -117,10 +117,10 @@ const ContactPage = () => {
             <div className="flex flex-col gap-3 mt-6">
               {contactItems.map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-blue-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-blue-600 dark:text-slate-100">
+                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-picton-blue-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-picton-blue-600 dark:text-slate-100">
                     <Icon size={16} strokeWidth={1.75} />
                   </div>
-                  <span className="text-sm text-blue-900 dark:text-slate-100">{text}</span>
+                  <span className="text-sm text-picton-blue-900 dark:text-slate-100">{text}</span>
                 </div>
               ))}
             </div>

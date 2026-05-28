@@ -21,6 +21,8 @@ const initialForm = {
   methodesApprentissage: [],
   methodesExercice: [],
   travailleur: false,
+  niveauActivite: "",   // ← nouveau
+  heuresSemaine: 10,    // ← nouveau (valeur par défaut 10h)
 };
 
 export default function FormulaireProfil() {
@@ -50,6 +52,7 @@ export default function FormulaireProfil() {
       if (!form.sexe) e.sexe = "Requis";
       if (!form.situationLogement) e.situationLogement = "Requis";
       if (!form.handicap) e.handicap = "Requis";
+      if (!form.niveauActivite) e.niveauActivite = "Requis";   // ← nouveau
     }
     if (step === 1) {
       if (!form.diplomActuel.trim()) e.diplomActuel = "Requis";
@@ -142,7 +145,7 @@ export default function FormulaireProfil() {
         <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl shadow-blue-100 dark:shadow-gray-800 border border-blue-50 dark:border-gray-800 overflow-hidden">
 
           {/* Card header stripe */}
-          <div className="h-1.5 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-400" />
+          <div className="h-1.5 bg-linear-to-r from-blue-400 via-blue-600 to-blue-400" />
 
           <div className="p-7">
 
@@ -198,7 +201,61 @@ export default function FormulaireProfil() {
                   </div>
                   {errors.handicap && <p className="text-red-500 text-xs">{errors.handicap}</p>}
                 </div>
+                {/* ─── Niveau d'activité ─── */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-semibold text-blue-900 dark:text-slate-100 tracking-wide">
+                    Niveau d'activité actuel <span className="text-blue-500">*</span>
+                  </label>
+                  <p className="text-xs text-blue-300 dark:text-slate-500 -mt-0.5">
+                    À quel point êtes-vous régulier dans votre apprentissage ?
+                  </p>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      ["inactif",          "Inactif — je me connecte très rarement"],
+                      ["peu_actif",        "Peu actif — quelques connexions par mois"],
+                      ["moderement_actif", "Modérément actif — quelques fois par semaine"],
+                      ["actif",            "Actif — presque tous les jours"],
+                      ["tres_actif",       "Très actif — quotidiennement et régulièrement"],
+                    ].map(([v, l]) => (
+                      <RadioBtn key={v} label={l} value={v}
+                        name="niveauActivite"
+                        checked={form.niveauActivite === v}
+                        onChange={set("niveauActivite")} />
+                    ))}
+                  </div>
+                  {errors.niveauActivite && (
+                    <p className="text-red-500 text-xs">{errors.niveauActivite}</p>
+                  )}
+                </div>
+
+                {/* ─── Heures de travail par semaine ─── */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm font-semibold text-blue-900 dark:text-slate-100 tracking-wide">
+                    Heures de travail personnel par semaine
+                  </label>
+                  <p className="text-xs text-blue-300 dark:text-slate-500 -mt-0.5">
+                    Révisions, exercices, lectures — en dehors des cours
+                  </p>
+                  <div className="flex items-center gap-4 mt-1">
+                    <input
+                      type="range"
+                      min={1} max={40} step={1}
+                      value={form.heuresSemaine}
+                      onChange={set("heuresSemaine")}
+                      className="flex-1 accent-blue-500 cursor-pointer"
+                    />
+                    <span className="w-16 text-center font-black text-blue-600 dark:text-blue-400 text-xl tabular-nums">
+                      {form.heuresSemaine}h
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-xs text-blue-300 dark:text-slate-600 px-1">
+                    <span>1h min</span>
+                    <span>~14h médiane</span>
+                    <span>40h max</span>
+                  </div>
+                </div>
               </div>
+
             )}
 
             {/* ─── ÉTAPE 2 : Formation ─── */}

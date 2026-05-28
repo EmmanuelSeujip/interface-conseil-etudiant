@@ -1,10 +1,13 @@
 import { useState } from "react";
-import Header from "../component/header";
-import { CheckBox, RadioBtn, InputField } from "../component/typeInput";
-import {stepIcons, ResultBadge} from "../component/iconic";
-import Popup from "../component/Formulaire/reponsePopup";
-import { methodesLabels, exerciceLabels, filieresDictionnaire, diplomesEntree, filieresCategoriesLabels } from "../utils/allEntry";
+import Popup from "../components/Formulaire/reponsePopup";
+import { ResultBadge, stepIcons } from "../components/iconic";
+
+import { useEffect } from "react";
+import { CheckBox, InputField, RadioBtn } from "../components/typeInput";
+import { useHeaderStore } from "../store/useHeaderStore";
+import { diplomesEntree, exerciceLabels, filieresCategoriesLabels, filieresDictionnaire, methodesLabels } from "../utils/allEntry";
 import sender from "../utils/sender";
+
 const STEPS = ["Profil", "Formation", "Résultat"];
 
 const initialForm = {
@@ -24,7 +27,10 @@ export default function FormulaireProfil() {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
-  const [navActive, setNavActive] = useState("accueil");
+  const setNavActive = useHeaderStore((state) => state.setNavActive);
+  useEffect(() => {
+    setNavActive("formulaire");
+  }, [setNavActive]);
 
   const set = (field) => (e) => setForm({ ...form, [field]: e.target.value });
 
@@ -57,58 +63,54 @@ export default function FormulaireProfil() {
 
   const next = () => { if (validate()) setStep((s) => Math.min(s + 1, 2)); };
   const prev = () => { setStep((s) => Math.max(s - 1, 0)); setErrors({}); };
-  const [messages,setMessages]=useState(null);
+  // const [messages, setMessages] = useState(null);
   // Dans Formulaire.jsx
   const [apiData, setApiData] = useState(null);  // ← nouveau state
 
   const submit = () => {
-      setIsLoad(true);
-      setIsPopupOpen(true);
-      const api_url = import.meta.env.VITE_MODEL_API_URL;
-      sender(form, api_url)
-          .then(res => res.json())
-          .then(data => {
-              setApiData(data);
-              setIsLoad(false);
-          })
-          .catch(err => {
-              console.error(err);
-              setIsLoad(false);
-          });
+    setIsLoad(true);
+    setIsPopupOpen(true);
+    const api_url = import.meta.env.VITE_MODEL_API_URL;
+    sender(form, api_url)
+      .then(res => res.json())
+      .then(data => {
+        setApiData(data);
+        setIsLoad(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setIsLoad(false);
+      });
   };
 
 
 
-const reset = () => { 
-    setForm(initialForm); 
-    setStep(0); 
+  const reset = () => {
+    setForm(initialForm);
+    setStep(0);
     setErrors({});
     // ← plus d'envoi ici
-};
+  };
 
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isLoad, setIsLoad] = useState(true);
 
-  const openPopup = () => {
-    setIsPopupOpen(true);
-  };
 
   const closePopup = () => {
     setIsPopupOpen(false);
   };
 
-  
+
   return (
-    <div className="min-h-screen bg-blue-50/50">
-      <Header navActive={navActive} setNavActive={setNavActive} />
+    <div className="min-h-screen bg-blue-50/50 dark:bg-gray-950">
       {/* MAIN */}
       <main className="max-w-2xl mx-auto px-4 py-10">
 
         {/* Page title */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-black text-blue-900 mb-2">Profil d'apprentissage</h1>
-          <p className="text-blue-500 text-sm font-medium">Complétez ce formulaire pour recevoir votre recommandation personnalisée</p>
+          <h1 className="text-3xl font-black text-blue-900 dark:text-slate-100 mb-2">Profil d'apprentissage</h1>
+          <p className="text-blue-500 dark:text-slate-400 text-sm font-medium">Complétez ce formulaire pour recevoir votre recommandation personnalisée</p>
         </div>
 
         {/* Stepper */}
@@ -117,27 +119,27 @@ const reset = () => {
             <div key={i} className="flex items-center">
               <div className="flex flex-col items-center">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2 transition-all duration-300
-                  ${i < step ? "bg-blue-500 border-blue-500 text-white shadow-md shadow-blue-200"
-                    : i === step ? "bg-white border-blue-500 text-blue-600 shadow-lg shadow-blue-100 ring-4 ring-blue-100"
-                    : "bg-white border-blue-200 text-blue-300"}`}>
+                  ${i < step ? "bg-blue-500 border-blue-500 text-white shadow-md shadow-blue-200 dark:shadow-gray-800"
+                    : i === step ? "bg-white dark:bg-gray-900 border-blue-500 dark:border-blue-500 text-blue-600 dark:text-slate-100 shadow-lg shadow-blue-100 dark:shadow-gray-800 ring-4 ring-blue-100 dark:ring-gray-800"
+                      : "bg-white dark:bg-gray-900 border-blue-200 dark:border-gray-700 text-blue-300 dark:text-slate-500"}`}>
                   {i < step
                     ? <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     : stepIcons[i]}
                 </div>
                 <span className={`mt-1.5 text-xs font-bold tracking-wide transition-colors duration-200
-                  ${i === step ? "text-blue-600" : i < step ? "text-blue-400" : "text-blue-200"}`}>
+                  ${i === step ? "text-blue-600 dark:text-slate-100" : i < step ? "text-blue-400 dark:text-slate-400" : "text-blue-200 dark:text-slate-600"}`}>
                   {label}
                 </span>
               </div>
               {i < STEPS.length - 1 && (
-                <div className={`w-20 h-0.5 mb-5 mx-1 rounded transition-all duration-500 ${i < step ? "bg-blue-500" : "bg-blue-100"}`} />
+                <div className={`w-20 h-0.5 mb-5 mx-1 rounded transition-all duration-500 ${i < step ? "bg-blue-500" : "bg-blue-100 dark:bg-gray-700"}`} />
               )}
             </div>
           ))}
         </div>
 
         {/* CARD */}
-        <div className="bg-white rounded-2xl shadow-xl shadow-blue-100 border border-blue-50 overflow-hidden">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl shadow-blue-100 dark:shadow-gray-800 border border-blue-50 dark:border-gray-800 overflow-hidden">
 
           {/* Card header stripe */}
           <div className="h-1.5 bg-gradient-to-r from-blue-400 via-blue-600 to-blue-400" />
@@ -148,18 +150,18 @@ const reset = () => {
             {step === 0 && (
               <div className="space-y-5">
                 <div>
-                  <h2 className="text-xl font-black text-blue-900">Informations personnelles</h2>
-                  <p className="text-blue-400 text-sm mt-0.5">Dites-nous qui vous êtes</p>
+                  <h2 className="text-xl font-black text-blue-900 dark:text-slate-100">Informations personnelles</h2>
+                  <p className="text-blue-400 dark:text-slate-400 text-sm mt-0.5">Dites-nous qui vous êtes</p>
                 </div>
 
-                <InputField label="Nom complet" value={form.nomComplet} onChange={set("nomComplet")} placeholder="Jean Dupont" required />
+                <InputField label="Nom complet" value={form.nomComplet} onChange={set("nomComplet")} placeholder="Votre nom" required />
                 {errors.nomComplet && <p className="text-red-500 text-xs -mt-4">{errors.nomComplet}</p>}
 
                 <InputField label="Âge" type="number" value={form.age} onChange={set("age")} placeholder="25" required />
                 {errors.age && <p className="text-red-500 text-xs -mt-4">{errors.age}</p>}
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-blue-900 tracking-wide">Sexe <span className="text-blue-500">*</span></label>
+                  <label className="text-sm font-semibold text-blue-900 dark:text-slate-100 tracking-wide">Sexe <span className="text-blue-500 dark:text-slate-400">*</span></label>
                   <div className="grid grid-cols-3 gap-2">
                     {[["Homme", "homme"], ["Femme", "femme"]].map(([l, v]) => (
                       <RadioBtn key={v} label={l} value={v} name="sexe" checked={form.sexe === v} onChange={set("sexe")} />
@@ -169,7 +171,7 @@ const reset = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-blue-900 tracking-wide">Situation de logement <span className="text-blue-500">*</span></label>
+                  <label className="text-sm font-semibold text-blue-900 dark:text-slate-100 tracking-wide">Situation de logement <span className="text-blue-500 dark:text-slate-400">*</span></label>
                   <div className="grid grid-cols-1 gap-2">
                     {[["Seul(e)", "seul"], ["En colocation", "colocation"], ["En famille", "famille_dense"]].map(([l, v]) => (
                       <RadioBtn key={v} label={l} value={v} name="logement" checked={form.situationLogement === v} onChange={set("situationLogement")} />
@@ -179,7 +181,7 @@ const reset = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-blue-900 tracking-wide">Avez-vous un handicap ? <span className="text-blue-500">*</span></label>
+                  <label className="text-sm font-semibold text-blue-900 dark:text-slate-100 tracking-wide">Avez-vous un handicap ? <span className="text-blue-500 dark:text-slate-400">*</span></label>
                   <div className="grid grid-cols-2 gap-2">
                     {[["Oui", "oui"], ["Non", "non"]].map(([l, v]) => (
                       <RadioBtn key={v} label={l} value={v} name="handicap" checked={form.handicap === v} onChange={set("handicap")} />
@@ -188,7 +190,7 @@ const reset = () => {
                   {errors.handicap && <p className="text-red-500 text-xs">{errors.handicap}</p>}
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-blue-900 tracking-wide">Travailleur ? <span className="text-blue-500">*</span></label>
+                  <label className="text-sm font-semibold text-blue-900 dark:text-slate-100 tracking-wide">Travailleur ? <span className="text-blue-500 dark:text-slate-400">*</span></label>
                   <div className="grid grid-cols-2 gap-2">
                     {[["Oui", true], ["Non", false]].map(([l, v]) => (
                       <RadioBtn key={v} label={l} value={v} name="travailleur" checked={form.travailleur === v} onChange={set("travailleur")} />
@@ -203,19 +205,19 @@ const reset = () => {
             {step === 1 && (
               <div className="space-y-5">
                 <div>
-                  <h2 className="text-xl font-black text-blue-900">Parcours & Méthodes</h2>
-                  <p className="text-blue-400 text-sm mt-0.5">Parlez-nous de votre formation</p>
+                  <h2 className="text-xl font-black text-blue-900 dark:text-slate-100">Parcours & Méthodes</h2>
+                  <p className="text-blue-400 dark:text-slate-400 text-sm mt-0.5">Parlez-nous de votre formation</p>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-blue-900 tracking-wide">
-                    Diplôme actuel <span className="text-blue-500">*</span>
+                  <label className="text-sm font-semibold text-blue-900 dark:text-slate-100 tracking-wide">
+                    Diplôme actuel <span className="text-blue-500 dark:text-slate-400">*</span>
                   </label>
                   <select
                     value={form.diplomActuel}
                     onChange={set("diplomActuel")}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-blue-100 bg-white text-slate-700 text-sm
-                      focus:outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition-all duration-200">
+                    className="w-full px-4 py-3 rounded-xl border-2 border-blue-100 dark:border-gray-700 bg-white dark:bg-gray-900 text-slate-700 dark:text-slate-200 text-sm
+                      focus:outline-none focus:border-blue-400 dark:focus:border-blue-500 focus:ring-4 focus:ring-blue-100 dark:focus:ring-gray-800 transition-all duration-200">
                     <option value="">-- Sélectionnez votre diplôme --</option>
                     {diplomesEntree.map((d) => (
                       <option key={d} value={d}>{d}</option>
@@ -225,14 +227,14 @@ const reset = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-blue-900 tracking-wide">
-                    Filière souhaitée <span className="text-blue-500">*</span>
+                  <label className="text-sm font-semibold text-blue-900 dark:text-slate-100 tracking-wide">
+                    Filière souhaitée <span className="text-blue-500 dark:text-slate-400">*</span>
                   </label>
                   <select
                     value={form.filieresouhaitee}
                     onChange={set("filieresouhaitee")}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-blue-100 bg-white text-slate-700 text-sm
-                      focus:outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 transition-all duration-200">
+                    className="w-full px-4 py-3 rounded-xl border-2 border-blue-100 dark:border-gray-700 bg-white dark:bg-gray-900 text-slate-700 dark:text-slate-200 text-sm
+                      focus:outline-none focus:border-blue-400 dark:focus:border-blue-500 focus:ring-4 focus:ring-blue-100 dark:focus:ring-gray-800 transition-all duration-200">
                     <option value="">-- Sélectionnez une filière --</option>
                     {Object.entries(filieresDictionnaire).map(([cat, filieres]) => (
                       <optgroup key={cat} label={filieresCategoriesLabels[cat]}>
@@ -247,9 +249,9 @@ const reset = () => {
 
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-blue-900 tracking-wide">
-                    Méthodes d'apprentissage préférées <span className="text-blue-500">*</span>
-                    <span className="ml-2 text-xs font-normal text-blue-300">(plusieurs choix possibles)</span>
+                  <label className="text-sm font-semibold text-blue-900 dark:text-slate-100 tracking-wide">
+                    Méthodes d'apprentissage préférées <span className="text-blue-500 dark:text-slate-400">*</span>
+                    <span className="ml-2 text-xs font-normal text-blue-300 dark:text-slate-500">(plusieurs choix possibles)</span>
                   </label>
                   <div className="grid grid-cols-1 gap-2">
                     {Object.entries(methodesLabels).map(([v, l]) => (
@@ -262,9 +264,9 @@ const reset = () => {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-sm font-semibold text-blue-900 tracking-wide">
-                    Modes d'exercice <span className="text-blue-500">*</span>
-                    <span className="ml-2 text-xs font-normal text-blue-300">(plusieurs choix possibles)</span>
+                  <label className="text-sm font-semibold text-blue-900 dark:text-slate-100 tracking-wide">
+                    Modes d'exercice <span className="text-blue-500 dark:text-slate-400">*</span>
+                    <span className="ml-2 text-xs font-normal text-blue-300 dark:text-slate-500">(plusieurs choix possibles)</span>
                   </label>
                   <div className="grid grid-cols-1 gap-2">
                     {Object.entries(exerciceLabels).map(([v, l]) => (
@@ -282,20 +284,20 @@ const reset = () => {
             {step === 2 && (
               <div className="space-y-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-200 flex-shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-200 dark:shadow-gray-800 flex-shrink-0">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
                   <div>
-                    <h2 className="text-xl font-black text-blue-900">Récapitulatif</h2>
-                    <p className="text-blue-400 text-sm">Voici les informations que vous avez renseignées</p>
+                    <h2 className="text-xl font-black text-blue-900 dark:text-slate-100">Récapitulatif</h2>
+                    <p className="text-blue-400 dark:text-slate-400 text-sm">Voici les informations que vous avez renseignées</p>
                   </div>
                 </div>
 
                 {/* Section 1 */}
-                <div className="rounded-xl border border-blue-100 bg-blue-50/40 p-4 space-y-3">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-blue-500 flex items-center gap-2">
+                <div className="rounded-xl border border-blue-100 dark:border-gray-800 bg-blue-50/40 dark:bg-gray-800/40 p-4 space-y-3">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-blue-500 dark:text-slate-400 flex items-center gap-2">
                     <span className="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs font-black">1</span>
                     Profil personnel
                   </h3>
@@ -309,8 +311,8 @@ const reset = () => {
                 </div>
 
                 {/* Section 2 */}
-                <div className="rounded-xl border border-blue-100 bg-blue-50/40 p-4 space-y-3">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-blue-500 flex items-center gap-2">
+                <div className="rounded-xl border border-blue-100 dark:border-gray-800 bg-blue-50/40 dark:bg-gray-800/40 p-4 space-y-3">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-blue-500 dark:text-slate-400 flex items-center gap-2">
                     <span className="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs font-black">2</span>
                     Parcours & formation
                   </h3>
@@ -328,49 +330,50 @@ const reset = () => {
           </div>
 
           {/* FOOTER BUTTONS */}
-          <div className="px-7 pb-7 flex items-center justify-between gap-3">
+          <div className="px-4 sm:px-7 pb-4 sm:pb-7 flex flex-wrap items-center justify-between gap-3">
             {step > 0 ? (
               <button onClick={prev}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl border-2 border-blue-200 text-blue-600 font-bold text-sm hover:bg-blue-50 transition-all duration-200">
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl border-2 border-blue-200 dark:border-gray-700 text-blue-600 dark:text-slate-300 font-bold text-sm hover:bg-blue-50 dark:hover:bg-gray-800 transition-all duration-200">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" /></svg>
                 Retour
               </button>
             ) : <div />}
 
-          {step < 2 ? (
-              <button onClick={next}>
-                  Suivant
+            {step < 2 ? (
+              <button onClick={next} className="cursor-pointer flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold text-sm hover:shadow-lg hover:shadow-blue-200 dark:hover:shadow-gray-800 transition-all duration-200">
+                Suivant
               </button>
-          ) : (
-              <div className="flex gap-3">
-                  {/* Bouton Soumettre */}
-                  <button onClick={submit}
-                      className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-sm ...">
-                      Obtenir ma recommandation
-                  </button>
+            ) : (
+              <div className="flex flex-wrap gap-2 sm:gap-3">
+                {/* Bouton Soumettre */}
+                <button onClick={submit}
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-sm hover:shadow-lg hover:shadow-green-200 dark:hover:shadow-gray-800 transition-all duration-200">
+                  Obtenir ma recommandation
+                </button>
 
-                  {/* Bouton Recommencer */}
-                  <button onClick={reset}
-                      className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold text-sm ...">
-                      Recommencer
-                  </button>
+                {/* Bouton Recommencer */}
+                <button onClick={reset}
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold text-sm hover:shadow-lg hover:shadow-blue-200 dark:hover:shadow-gray-800 transition-all duration-200">
+                  Recommencer
+                </button>
               </div>
-          )}
+            )}
           </div>
         </div>
 
         {/* Progress bar */}
         <div className="mt-6 flex flex-col items-center gap-2">
-          <div className="w-full max-w-xs h-1.5 bg-blue-100 rounded-full overflow-hidden">
+          <div className="w-full max-w-xs h-1.5 bg-blue-100 dark:bg-gray-700 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all duration-700 ease-out"
               style={{ width: `${((step) / (STEPS.length - 1)) * 100}%` }} />
           </div>
-          <p className="text-xs text-blue-400 font-medium">Étape {step + 1} sur {STEPS.length}</p>
+          <p className="text-xs text-blue-400 dark:text-slate-500 font-medium">Étape {step + 1} sur {STEPS.length}</p>
         </div>
-      <Popup isOpen={isPopupOpen} onClose={closePopup} isLoad={isLoad} data={apiData}>
-      </Popup>
+        <Popup isOpen={isPopupOpen} onClose={closePopup} isLoad={isLoad} data={apiData}>
+        </Popup>
       </main>
     </div>
   );
 }
+ 
